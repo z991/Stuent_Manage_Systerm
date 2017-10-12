@@ -1,0 +1,8 @@
+minutes=eval(input("Enter the number for minutes:"))
+days=int(minutes/60/24)
+years=int(days/365)
+print(days)
+print(years)
+years=int(minutes/60/24/365)
+days=int((minutes-(years*60*24*365))/60/24)
+print(years,days)
