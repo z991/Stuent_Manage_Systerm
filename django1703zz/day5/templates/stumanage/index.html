@@ -1,0 +1,94 @@
+{% extends 'stumanage/base.html' %}
+
+{% block main %}
+    <table class="table table-bordered table-hover">
+        <tr>
+
+            <th>头像
+
+            </th>
+
+            <th>姓名
+            <a href="?order=name&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=name&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
+            <th>年龄
+            <a href="?order=age&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=age&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
+            <th>成绩
+            <a href="?order=score&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=score&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
+            <th>邮箱
+            <a href="?order=email&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=email&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
+            <th>班级</th>
+            <th>管理</th>
+        </tr>
+        {% for stu in stus %}
+        <tr>
+            <td><img src="{{ stu.avatar.url }}" width="50" height="50"></td>
+            <td>{{ stu.name }}</td>
+            <td>{{ stu.age }}</td>
+            <td>
+                {% if stu.score %}
+                {{ stu.score }}
+                {% else %}
+                    挂科了
+                {% endif %}
+            </td>
+            <td>{{ stu.email }}</td>
+            <td>{{ stu.cls.name }}</td>
+            <td>
+                <a href="{% url 'stu_del' %}?sid={{ stu.id }}" onclick="return confirm('真的删除吗？');">删除</a>
+                <a href="{% url 'stu_edit' %}?sid={{ stu.id }}">修改</a>
+            </td>
+        </tr>
+            {% endfor %}
+    </table>
+<nav aria-label="Page navigation" class="text-center">
+    <ul class="pagination">
+{#        上一页#}
+        {% if stus.has_previous  %}
+        <li>
+            <a href="?pn={{ stus.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+{#        分页数字#}
+        {% for num in page_nums%}
+            {% if num == stus.number %}<!--当前页-->
+        <li class="active"><a href="?pn={{ num }}">{{ num }}</a></li>
+            {% else %}<!--非当前页-->
+        <li><a href="?pn={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if stus.has_next %}
+        <li>
+            <a href="?pn={{ stus.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        {% endif %}
+    </ul>
+
+</nav>
+
+{% endblock %}

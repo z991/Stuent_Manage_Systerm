@@ -1,0 +1,72 @@
+{% extends 'stumanage/base.html' %}
+
+{% block main %}
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label" col-sm-2>姓名</label>
+        <div class="clo-sm-6">
+           <input class="form-control" type="text" name="name" value="{{ stu.name }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" col-sm-2>年龄</label >
+        <div class="clo-sm-6">
+           <input class="form-control" type="text" name="age" value="{{ stu.age }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" col-sm-2>成绩</label>
+        <div class="clo-sm-6">
+           <input class="form-control" type="text" name="score" value="{{ stu.score }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" col-sm-2>邮箱</label>
+        <div class="clo-sm-6">
+           <input class="form-control" type="text" name="email" value="{{ stu.email }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" col-sm-2>头像</label>
+        <div class="clo-sm-6">
+           <input class="form-control" type="file" name="avatar" value="{{ stu.avatar }}">
+        <span style="color: red">{{ error }}</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" col-sm-2>头像预览</label>
+        <div class="clo-sm-6">
+            {% if stu %}
+
+           <img src="{{ stu.avatar.url }}" width="100" height="100">
+            {% else %}
+            
+            <img src="/upload/avatar/default.jpg" width=
+                    "100" height="100">
+        
+            {% endif %}
+        
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2">班级</label>
+        <div class="col-lg-6">
+            <select class="form-control" name="cls" id="">
+                {% for cls in classes %}
+                    {% if cls.id == stu.cls_id %}
+                        <option value="{{ cls.id }}" selected="selected"> {{ cls.name }}</option>
+                    {% else %}
+                        <option value="{{ cls.id }}"> {{ cls.name }}</option>
+                    {% endif %}
+                {% endfor %}
+        </select>
+        </div>
+        <input class="btn btn-primary" type="submit">
+    </div>
+</form>
+
+
+{% endblock %}
