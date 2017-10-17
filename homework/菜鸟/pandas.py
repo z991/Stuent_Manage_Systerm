@@ -1,7 +1,0 @@
-df=pd.DataFrame(
-
-
-
-
-
-)

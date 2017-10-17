@@ -1,6 +1,0 @@
-mylist=(x for x in range(1000))
-print(type(mylist))
-print(next(mylist))
-print(next(mylist))
-print(next(mylist))
-print(next(mylist))
