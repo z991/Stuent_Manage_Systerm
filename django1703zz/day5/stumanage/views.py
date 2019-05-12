@@ -1,6 +1,6 @@
 #coding:utf8
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-import models
+from stumanage import models
 #做判断条件,一个Q就是一个条件，然后用并集操作符连接
 from django.db.models import Q
 #                                 分页类       非法页       空页         页数不是整型
@@ -49,7 +49,7 @@ def index(request):
     except (InvalidPage,EmptyPage,PageNotAnInteger) as e:
         pn=1
         stus = paginator.page(pn)
-        print e
+        print(e)
     #分页数字生成
     num_pages=stus.paginator.num_pages
     if num_pages<3:
@@ -127,9 +127,6 @@ def stu_add(request):
         email = request.POST.get('email', None)
         cls_id = request.POST.get('cls', None)
         # 通过FILES字典获取单个上传文件，avatar是通过模板变量里的input标签的name属性决定的
-
-
-
         avatar=request.FILES.get('avatar',None)#获取一个文件对象
         if avatar is not None:
             res=upload(request,avatar)
@@ -137,9 +134,6 @@ def stu_add(request):
                 return render(request,'stumanage/stu_add.html',{'error':res[1]})
             else:#上传成功
                 new_name=res[1]#获取返回的新名字
-
-
-
         stu_info={
             'name':name,
             'age':age,
@@ -157,6 +151,21 @@ def stu_add(request):
             'classes':classes,
         }
         return render(request,'stumanage/stu_add.html',context)
+
+def cls_add(request):
+    if request.method == 'POST':
+        cls_name = request.POST.get('cls_name')
+        print('cls_name===', cls_name)
+        exists = models.Class.objects.filter(name=cls_name).exists()
+        if exists == True:
+            return render(request, 'stumanage/class_add.html', {'error': '该班级{}已存在'.format(cls_name)})
+        models.Class.objects.create(**{"name": cls_name})
+        return HttpResponseRedirect('/')
+    else:
+        context = {
+            'cls_manage': 'active'
+        }
+        return render(request, 'stumanage/class_add.html', context)
 
 #学生修改业务处理
 def stu_edit(request):

@@ -12,9 +12,6 @@ class Student(models.Model):
     cls=models.ForeignKey('Class')
     avatar=models.ImageField(verbose_name='头像',upload_to='avatar/',default='avatar/default.jpg')
 
-
-
-
     #内部类 对表
     def __unicode__(self):
         return self.name

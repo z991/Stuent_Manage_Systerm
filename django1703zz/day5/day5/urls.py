@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^$',views.index,name='index'),
     url(r'^stu_del/$',views.stu_del,name='stu_del'),
     url(r'^stu_add/$',views.stu_add,name='stu_add'),
+    url(r'^cls_add/$',views.cls_add,name='cls_add'),
     url(r'^stu_edit/$',views.stu_edit,name='stu_edit'),
     url(r'^login/$',views.login,name='login'),
     url(r'^logout/$',views.logout,name='logout'),

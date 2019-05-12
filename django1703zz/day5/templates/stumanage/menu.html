@@ -1,7 +1,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="{{ index }}"><a href="{% url 'index' %}">学生管理<span class="sr-only">(current)</span></a></li>
-            <li class="{{ manage }}"><a href="{% url 'stu_add' %}">增加学生</a></li>
+            <li class="{{ manage }}"><a href="{% url 'stu_add' %}">增加学生</a>
+            <li class="{{ cls_manage }}"><a href="{% url 'cls_add' %}">增加班级</a></li>
             <li class="{{ config }}"><a href="#">系统配置</a></li>
             <li><a href="">退出系统</a></li>
           </ul>
