@@ -10,8 +10,12 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.index,name='index'),
     url(r'^stu_del/$',views.stu_del,name='stu_del'),
+
     url(r'^stu_add/$',views.stu_add,name='stu_add'),
+    url(r'^cls_edit/$',views.cls_edi,name='cls_edit'),
     url(r'^cls_add/$',views.cls_add,name='cls_add'),
+    url(r'^cls_index/$',views.cls_index,name='cls_index'),
+    url(r'^cls_del/$',views.cls_del,name='cls_del'),
     url(r'^stu_edit/$',views.stu_edit,name='stu_edit'),
     url(r'^login/$',views.login,name='login'),
     url(r'^logout/$',views.logout,name='logout'),

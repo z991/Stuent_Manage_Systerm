@@ -2,7 +2,7 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from stumanage import models
 #做判断条件,一个Q就是一个条件，然后用并集操作符连接
-from django.db.models import Q
+from django.db.models import Q, F
 #                                 分页类       非法页       空页         页数不是整型
 from django.core.paginator import Paginator,InvalidPage,EmptyPage,PageNotAnInteger
 from django.contrib import auth#登录，退出，验证
@@ -26,7 +26,6 @@ def index(request):
         pn=int(pn)
     except Exception as e:
         pn=1
-
     if wd is not None:
         conditon=Q(name__icontains=wd) | Q(score__icontains=wd) | Q(age__icontains=wd) | Q (email__icontains=wd) | Q(cls__name__icontains=wd)
         stus=models.Student.objects.filter(conditon)
@@ -39,9 +38,6 @@ def index(request):
             stus=stus.order_by(order)
         else:#降序
             stus=stus.order_by(order).reverse()
-
-
-
     #分页
     try:
         paginator=Paginator(stus,2)
@@ -67,11 +63,7 @@ def index(request):
             start=pn-1
             end=pn+2
 
-    page_nums=range(start,end)
-
-
-
-
+    page_nums = range(start,end)
     context={
         'index':'active',
         'stus':stus,
@@ -79,12 +71,6 @@ def index(request):
         'page_nums':page_nums,
     }
     return render(request,'stumanage/index.html',context)
-
-
-
-
-
-
 
 #删除学生
 def stu_del(request):
@@ -160,12 +146,86 @@ def cls_add(request):
         if exists == True:
             return render(request, 'stumanage/class_add.html', {'error': '该班级{}已存在'.format(cls_name)})
         models.Class.objects.create(**{"name": cls_name})
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/cls_index/')
     else:
         context = {
             'cls_manage': 'active'
         }
         return render(request, 'stumanage/class_add.html', context)
+
+def cls_edi(request):
+    cl_id = request.GET.get('cl_id', None)
+    if request.method == 'POST':
+        cls_name = request.POST.get('cls_name')
+        exists = models.Class.objects.filter(name=cls_name).exists()
+        if exists == True:
+            return render(request, 'stumanage/class_add.html', {'error': '该班级{}已存在'.format(cls_name)})
+        models.Class.objects.filter(id=cl_id).update(**{"name": cls_name})
+        return HttpResponseRedirect('/cls_index/')
+    else:
+        cls = models.Class.objects.get(id=cl_id)
+        return render(request, 'stumanage/class_add.html', {"cls": cls})
+
+def cls_del(request):
+    cl_id = request.GET.get('cl_id', None)
+    print('cl_id===', cl_id)
+    models.Class.objects.filter(pk=cl_id).delete()
+    return HttpResponseRedirect('/cls_index/')
+
+def cls_index(request):
+    #搜索，如果没有关键字，列出所有结果
+    wd=request.GET.get('name',None)
+    order=request.GET.get('order',None)
+    rule=request.GET.get('rule',None)
+    pn=request.GET.get('pn',1)
+    #pn不是数字转成整型
+    try:
+        pn=int(pn)
+    except Exception as e:
+        pn=1
+    if wd is not None:
+        cls=models.Class.objects.filter(name__icontains=wd)
+    else:
+        cls = models.Class.objects.all()
+
+    #排序规则处理
+    if rule == 'd':
+        cls = cls.order_by('name').reverse()
+    else:#降序
+        cls=cls.order_by('name')
+    #分页
+    try:
+        paginator=Paginator(cls,2)
+        stus = paginator.page(pn)
+    except (InvalidPage,EmptyPage,PageNotAnInteger) as e:
+        pn=1
+        stus = paginator.page(pn)
+        print(e)
+    #分页数字生成
+    num_pages=stus.paginator.num_pages
+    if num_pages<3:
+       start=1
+       end=num_pages+1
+    else:
+
+        if pn <=2:#页数左边界
+            start=1
+            end=4
+        elif pn>=num_pages-2:#页数右边界
+            start=num_pages-2
+            end=num_pages+1
+        else:#页数不触及边界的情况
+            start=pn-1
+            end=pn+2
+
+    page_nums = range(start,end)
+    context={
+        'cls_index':'active',
+        'cls':cls,
+        'wd':wd,
+        'page_nums':page_nums,
+    }
+    return render(request,'stumanage/class_index.html',context)
 
 #学生修改业务处理
 def stu_edit(request):
@@ -184,9 +244,6 @@ def stu_edit(request):
                 return render(request,'stumanage/stu_add.html',{'error':res[1]})
             else:#上传成功
                 new_name=res[1]#获取返回的新名字
-
-
-
         stu_info={
             'name':name,
             'age':age,

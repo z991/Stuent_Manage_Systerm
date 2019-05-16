@@ -1,0 +1,70 @@
+{% extends 'stumanage/base.html' %}
+
+{% block main %}
+    <table class="table table-bordered table-hover">
+        <tr>
+
+            <th>班级id
+
+            </th>
+
+            <th>班级名称
+            <a href="?order=name&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=name&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            <th>管理</th>
+        </tr>
+        {% for cl in cls %}
+        <tr>
+            <td>{{ cl.id }}</td>
+            <td>{{ cl.name }}</td>
+            <td>
+                <a href="{% url 'cls_del' %}?cl_id={{ cl.id }}" onclick="return confirm('真的删除吗？');">删除</a>
+                <a href="{% url 'cls_edit' %}?cl_id={{ cl.id }}">修改</a>
+            </td>
+        </tr>
+            {% endfor %}
+    </table>
+<nav aria-label="Page navigation" class="text-center">
+    <ul class="pagination">
+        上一页
+        {% if stus.has_previous  %}
+        <li>
+            <a href="?pn={{ stus.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        分页数字
+        {% for num in page_nums%}
+            {% if num == stus.number %}<!--当前页-->
+        <li class="active"><a href="?pn={{ num }}">{{ num }}</a></li>
+            {% else %}<!--非当前页-->
+        <li><a href="?pn={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if stus.has_next %}
+        <li>
+            <a href="?pn={{ stus.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        {% endif %}
+    </ul>
+
+</nav>
+
+{% endblock %}
