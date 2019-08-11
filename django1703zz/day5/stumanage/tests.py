@@ -1,24 +1,11 @@
 from django.test import TestCase
 
 # Create your tests here.
-import time
 import requests
-import json
 from lxml import etree
 from pyquery import PyQuery as pq
 from stumanage.models import Movie
 import datetime
-
-
-url = "https://maoyan.com/board/4?offset=10"
-response = requests.get(url).content
-bod = str(response, encoding="utf-8")
-
-html = etree.HTML(bod)
-doc = pq(html)
-
-movie_list = []
-title = doc('dl dd')
 
 def get_bod(num):
     url = "https://maoyan.com/board/4?offset={}".format(num)
@@ -57,7 +44,6 @@ def main():
     for i in range(0, 91, 10):
         title = get_bod(i)
         movie_list = get_movie_list_dict(title)
-        print(movie_list)
         create_movie(movie_list)
 
 if __name__ == "__main__":

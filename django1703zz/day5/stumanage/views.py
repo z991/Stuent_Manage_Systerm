@@ -230,7 +230,6 @@ def cls_index(request):
 @login_required
 def movie_index(request):
     #搜索，如果没有关键字，列出所有结果
-    print('data===', request.GET)
     wd=request.GET.get('wd',None)
     order = request.GET.get('order', None)
     rule=request.GET.get('rule',None)
@@ -245,7 +244,6 @@ def movie_index(request):
         movie=models.Movie.objects.filter(conditon)
     else:
         movie = models.Movie.objects.all()
-
     #排序规则处理
     if order is not None:
         if rule == 'u':#升序
@@ -254,7 +252,7 @@ def movie_index(request):
             movie=movie.order_by(order).reverse()
     #分页
     try:
-        paginator=Paginator(movie,10)
+        paginator=Paginator(movie,6)
         movie = paginator.page(pn)
     except (InvalidPage,EmptyPage,PageNotAnInteger) as e:
         pn=1
@@ -266,7 +264,6 @@ def movie_index(request):
        start=1
        end=num_pages+1
     else:
-
         if pn <=2:#页数左边界
             start=1
             end=4
@@ -276,7 +273,6 @@ def movie_index(request):
         else:#页数不触及边界的情况
             start=pn-1
             end=pn+2
-
     page_nums = range(start,end)
     context={
         'movie_':'active',

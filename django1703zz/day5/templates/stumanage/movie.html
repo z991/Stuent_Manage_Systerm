@@ -3,10 +3,9 @@
 {% block main %}
     <table class="table table-bordered table-hover">
         <tr>
+            <th>id</th>
 
-            <th>电影海报
-
-            </th>
+            <th>电影海报</th>
 
             <th>电影名称
             <a href="?order=name&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
@@ -27,6 +26,7 @@
         </tr>
         {% for m in movie %}
         <tr>
+            <td>{{ m.id }}</td>
             <td><img src="{{ m.img }}" width="50" height="50"></td>
             <td>{{ m.name }}</td>
             <td>{{ m.actor }}</td>
