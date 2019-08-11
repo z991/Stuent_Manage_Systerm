@@ -1,6 +1,9 @@
 #coding:utf8
 from django.db import models
 from django.contrib.auth.models import User
+from pytz import timezone
+from django.conf import settings
+TIME_ZONE = settings.TIME_ZONE if settings.TIME_ZONE else 'Asia/Shanghai'
 
 # Create your models here.
 class Student(models.Model):
@@ -34,3 +37,18 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.nick
+
+
+class Movie(models.Model):
+
+    name = models.CharField(verbose_name="电影名称", max_length=64)
+    actor = models.CharField(verbose_name="演员", max_length=128)
+    up_time = models.DateField(verbose_name="上映时间")
+    score = models.CharField(verbose_name="评分", max_length=8)
+    img = models.TextField(verbose_name="图片")
+
+    class Meta:
+        verbose_name = verbose_name_plural = '猫眼电影'
+
+    def __unicode__(self):
+        return self.name

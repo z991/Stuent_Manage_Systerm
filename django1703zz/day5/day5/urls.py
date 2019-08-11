@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.index,name='index'),
     url(r'^stu_del/$',views.stu_del,name='stu_del'),
+    url(r'^movie/$',views.movie_index,name='movie'),
 
     url(r'^stu_add/$',views.stu_add,name='stu_add'),
     url(r'^cls_edit/$',views.cls_edi,name='cls_edit'),

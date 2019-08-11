@@ -72,7 +72,7 @@ DATABASES = {
         'NAME':'sousuo5',
         'HOST':'127.0.0.1',
         'USER':'root',
-        'PASSWORD':'111111',
+        'PASSWORD':'1qaz@WSX',
         'PORT':'3306',
     }
 }

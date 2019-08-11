@@ -4,31 +4,43 @@
     <table class="table table-bordered table-hover">
         <tr>
 
-            <th>班级id
+            <th>电影海报
 
             </th>
 
-            <th>班级名称
+            <th>电影名称
             <a href="?order=name&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
              <a href="?order=name&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
-            <th>管理</th>
+            </th>
+            <th>主演演员
+            <a href="?wd={{ wd }}"></a>
+             <a href="?wd={{ wd }}"></a>
+            </th>
+            <th>上映时间
+            <a href="?order=up_time&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=up_time&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
+            <th>电影评分
+            <a href="?order=score&rule=u&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+             <a href="?order=score&rule=d&wd={{ wd }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+            </th>
         </tr>
-        {% for cl in cls %}
+        {% for m in movie %}
         <tr>
-            <td>{{ cl.id }}</td>
-            <td>{{ cl.name }}</td>
-            <td>
-                <a href="{% url 'cls_del' %}?cl_id={{ cl.id }}" onclick="return confirm('真的删除吗？');">删除</a>
-                <a href="{% url 'cls_edit' %}?cl_id={{ cl.id }}">修改</a>
-            </td>
+            <td><img src="{{ m.img }}" width="50" height="50"></td>
+            <td>{{ m.name }}</td>
+            <td>{{ m.actor }}</td>
+            <td>{{ m.up_time }}</td>
+            <td>{{ m.score }}</td>
         </tr>
             {% endfor %}
     </table>
 <nav aria-label="Page navigation" class="text-center">
     <ul class="pagination">
-        {% if stus.has_previous  %}
+{#        上一页#}
+        {% if movie.has_previous  %}
         <li>
-            <a href="?pn={{ stus.previous_page_number }}" aria-label="Previous">
+            <a href="?pn={{ movie.previous_page_number }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -39,17 +51,18 @@
             </a>
         </li>
         {% endif %}
+{#        分页数字#}
         {% for num in page_nums%}
-            {% if num == stus.number %}<!--当前页-->
+            {% if num == movie.number %}<!--当前页-->
         <li class="active"><a href="?pn={{ num }}">{{ num }}</a></li>
             {% else %}<!--非当前页-->
         <li><a href="?pn={{ num }}">{{ num }}</a></li>
             {% endif %}
         {% endfor %}
 
-        {% if stus.has_next %}
+        {% if movie.has_next %}
         <li>
-            <a href="?pn={{ stus.next_page_number }}" aria-label="Next">
+            <a href="?pn={{ movie.next_page_number }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

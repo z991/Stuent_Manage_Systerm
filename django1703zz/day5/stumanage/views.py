@@ -168,7 +168,6 @@ def cls_edi(request):
 
 def cls_del(request):
     cl_id = request.GET.get('cl_id', None)
-    print('cl_id===', cl_id)
     models.Class.objects.filter(pk=cl_id).delete()
     return HttpResponseRedirect('/cls_index/')
 
@@ -226,6 +225,67 @@ def cls_index(request):
         'page_nums':page_nums,
     }
     return render(request,'stumanage/class_index.html',context)
+
+
+@login_required
+def movie_index(request):
+    #搜索，如果没有关键字，列出所有结果
+    print('data===', request.GET)
+    wd=request.GET.get('wd',None)
+    order = request.GET.get('order', None)
+    rule=request.GET.get('rule',None)
+    pn=request.GET.get('pn',1)
+    #pn不是数字转成整型
+    try:
+        pn=int(pn)
+    except Exception as e:
+        pn=1
+    if wd not in ['None', None]:
+        conditon=Q(name__icontains=wd) | Q(actor__icontains=wd)
+        movie=models.Movie.objects.filter(conditon)
+    else:
+        movie = models.Movie.objects.all()
+
+    #排序规则处理
+    if order is not None:
+        if rule == 'u':#升序
+            movie=movie.order_by(order)
+        else:#降序
+            movie=movie.order_by(order).reverse()
+    #分页
+    try:
+        paginator=Paginator(movie,10)
+        movie = paginator.page(pn)
+    except (InvalidPage,EmptyPage,PageNotAnInteger) as e:
+        pn=1
+        movie = paginator.page(pn)
+        print(e)
+    #分页数字生成
+    num_pages=movie.paginator.num_pages
+    if num_pages<3:
+       start=1
+       end=num_pages+1
+    else:
+
+        if pn <=2:#页数左边界
+            start=1
+            end=4
+        elif pn>=num_pages-2:#页数右边界
+            start=num_pages-2
+            end=num_pages+1
+        else:#页数不触及边界的情况
+            start=pn-1
+            end=pn+2
+
+    page_nums = range(start,end)
+    context={
+        'movie_':'active',
+        'movie': movie,
+        'wd':wd,
+        'page_nums':page_nums,
+    }
+    return render(request,'stumanage/movie.html',context)
+
 
 #学生修改业务处理
 def stu_edit(request):
