@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97f58e3b-4b21-4541-9267-8588d9e0abe9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stumanage/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/stumanage/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stumanage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/stumanage/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/stumanage/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stumanage/movie.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +44,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/stumanage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -79,7 +77,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tests">
+  <component name="RunManager" selected="Django server.day5">
     <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="day5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,6 +149,13 @@
       <workItem from="1559651530021" duration="1561000" />
       <workItem from="1565428099576" duration="2861000" />
       <workItem from="1565515434078" duration="6820000" />
+      <workItem from="1565534682089" duration="307000" />
+      <workItem from="1570066481902" duration="4105000" />
+      <workItem from="1570093667351" duration="255000" />
+      <workItem from="1570095418780" duration="756000" />
+      <workItem from="1570347176803" duration="3329000" />
+      <workItem from="1570499808964" duration="62000" />
+      <workItem from="1578117061986" duration="560000" />
     </task>
     <servers />
   </component>
