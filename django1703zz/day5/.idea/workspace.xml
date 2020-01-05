@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97f58e3b-4b21-4541-9267-8588d9e0abe9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,15 +53,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\AAAAADjangoproject\django1703zz\day5\static" />
+      <recent name="D:\AAAAADjangoproject\django1703zz\day5\templates\stumanage" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/templates/stumanage" />
       <recent name="D:\AAAAADjangoproject\django1703zz\day5\templates\stumanage" />
       <recent name="D:\AAAAADjangoproject\django1703zz\day5\templates" />
       <recent name="D:\AAAAADjangoproject\django1703zz\day5" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\AAAAADjangoproject\django1703zz\day5\static" />
-      <recent name="D:\AAAAADjangoproject\django1703zz\day5\templates\stumanage" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -155,7 +155,8 @@
       <workItem from="1570095418780" duration="756000" />
       <workItem from="1570347176803" duration="3329000" />
       <workItem from="1570499808964" duration="62000" />
-      <workItem from="1578117061986" duration="560000" />
+      <workItem from="1578117061986" duration="1910000" />
+      <workItem from="1578203605523" duration="1850000" />
     </task>
     <servers />
   </component>
